@@ -1,0 +1,3 @@
+
+date, user, file_name, train_rmse, valid_rmse, test_rmse, etc
+250708, suhwan, BaseLinemodel_test, -, -, 47133.7121, baselinecode_model
