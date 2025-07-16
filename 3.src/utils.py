@@ -39,7 +39,6 @@ def get_lat_lon(original_df):
         try:
             location = geolocator.geocode(address)
             if location:
-                print(location.longitude, location.latitude)
                 return pd.Series({'좌표X': location.longitude, '좌표Y': location.latitude})
             else:
                 return pd.Series({'좌표X': None, '좌표Y': None})
