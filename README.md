@@ -4,7 +4,6 @@
 
 | ![김수환](https://avatars.githubusercontent.com/u/213407805?v=4) | ![김병현](https://avatars.githubusercontent.com/u/197662510?v=4) | ![이가은](https://avatars.githubusercontent.com/u/83016020?v=4) | ![이윤서](https://avatars.githubusercontent.com/u/77047118?v=4) |
 | :--------------------------------------------------------------: | :--------------------------------------------------------------: | :--------------------------------------------------------------: | :--------------------------------------------------------------: |
-|            [김수환](https://github.com/suhwankimkim)             |            [김병현](https://github.com/Bkankim)             |            [이가은](https://github.com/cjoh21)             |            [이윤서](https://github.com/riicoseo)             |
 |                            팀장                             |                            팀원                           |                            팀원                             |                            서기                         |
 
 ## 1. Competiton Info
@@ -86,7 +85,13 @@
 
 ### Meeting Log
 
-- _Insert your meeting log link like Notion or Google Docs_
+- https://www.notion.so/20240707_-22940cb3731d808c9b0dc3648029c2a6?source=copy_link
+- https://www.notion.so/20250708_-22c40cb3731d80e0b58ecd2d41a643b6?source=copy_link
+- https://www.notion.so/20250710_-23040cb3731d802b9e9eeda7e60a74a8?source=copy_link
+- https://www.notion.so/20250714_-23140cb3731d801e9386dd2f5916e27e?source=copy_link
+- https://www.notion.so/20250715_-23240cb3731d80d8a92ec42b7fba88f6?source=copy_link
+- https://www.notion.so/20250716_-23340cb3731d8059847ff7f3d91d8081?source=copy_link
+- https://www.notion.so/20250717_-23340cb3731d80f89a46dd4b49e2debb?source=copy_link
 
 ### Reference
 
