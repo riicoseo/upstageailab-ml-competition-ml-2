@@ -50,25 +50,80 @@
 
 ### Dataset overview
 
-- _Explain using data_
+### Dataset overview
+
+- **데이터 출처**: 서울시 아파트 실거래가 (2007년 ~ 2023년 6월)
+- **문제 유형**: 회귀(Regression)
+- **예측 목표**: 아파트 실거래 가격(`target`) 예측
+- **데이터 구성**:
+  - `train.csv`: 학습용 데이터
+  - `test.csv`: 테스트 데이터
+  - `submission.csv`: 예측 결과 제출용
+- **주요 변수 예시**: `계약년월`, `시군구`, `아파트명`, `전용면적`, `층`, `건축년도`, `거래금액`
 
 ### EDA
 
-- _Describe your EDA process and step-by-step conclusion_
+1. **결측치 분석**
+   - 결측 비율 > 30% 컬럼은 제거
+   - 범주형은 `'NULL'` 대체, 수치형은 선형 보간 사용
+
+2. **이상치 탐지 & 처리**
+   - `전용면적`, `세대당 면적`, `주차대수` 등의 변수는 **상하위 0.5% 클리핑**
+   - 일부 변수는 `log1p()` 변환 적용하여 분포 왜곡 완화
+
+3. **변수 간 상관관계 분석**
+   - 다중공선성 또는 redundancy 있는 변수 제거
+
+4. **시각화**
+   - 히스토그램, boxplot, 히트맵 등을 활용해 변수 분포 및 이상치 확인  
+   - 계약일 시계열 흐름 분석 → **최근일수록 가격 상승 추세** 포착
+
+> 결론: 전처리를 통해 **모델이 학습에 집중할 수 있도록 노이즈 제거 & 유효 변수 구성** 완료
 
 ### Feature engineering
 
-- _Describe feature engineering process_
+| 유형         | 최종 사용 Feature 목록 |
+|--------------|--------------------------|
+| 범주형 변수   | `'season'`, `'new_old'`, `'구'`, `'동'` |
+| 수치형 변수   | `'전용면적'`, `'층'`, `'contract_date'`, `'covid'`, `'contract_month_sin'`, `'contract_month_cos'`, `'apt_age'` |
+| 생성 파생변수 | `contract_date` (날짜 → 숫자), `contract_month_sin`, `contract_month_cos` (계절성 인코딩), `apt_age` (건축연도 기반 나이), `covid` (2020년 이상 마스킹), `season` (월 → 계절) |
+| 최종 변수 수 | 총 12개 컬럼 (타깃 포함) |
+
+> 💡 도메인 해석을 통해 계약월을 사인/코사인으로 분해하고, 건축연도 → `apt_age`로 전환하는 등 시계열적 흐름을 보존하는 feature engineering 전략을 사용하였습니다.
 
 ## 4. Modeling
 
 ### Model descrition
 
-- _Write model information and why your select this model_
+- **사용한 모델**
+  - `RandomForestRegressor`
+  - `LightGBMRegressor`
+
+- **선택 이유**
+  - **RandomForest**: 구조적 결측치에 강하며, baseline 모델로 적합
+  - **LGBM**: 빠른 학습 속도, 낮은 메모리 사용, 범주형 자동 처리 등 고성능 모델로 사용
+
+- **기타 특징**
+  - 두 모델 모두 회귀 문제에 적합
+  - feature importance 시각화 및 변수 제거 기준 참고 지표로 활용
 
 ### Modeling Process
 
-- _Write model train and test process with capture_
+1. **데이터 분리**:
+   - 학습/검증: `train_test_split` 또는 `StratifiedKFold(5)` 기반 분할
+   - 테스트 데이터는 리더보드 제출용으로 별도 분리
+
+2. **타깃 변환**:
+   - `np.log1p(target)` 형태로 로그 변환 후 학습
+   - 예측 결과는 `np.expm1()`로 다시 복원
+
+3. **RandomForest 모델**
+   - 기본 파라미터로 baseline 점수 확보
+   - 피처 수 증가 시 과적합 발생 경향 → 성능 한계
+
+4. **LGBM 모델**
+   - 주요 파라미터 튜닝: `num_leaves`, `learning_rate`, `max_depth`, `n_estimators`
+   - GPU 학습으로 빠른 실험 가능
 
 ## 5. Result
 
